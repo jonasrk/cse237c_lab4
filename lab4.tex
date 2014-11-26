@@ -1,0 +1,50 @@
+\documentclass[11pt]{report}
+
+\usepackage{listings}
+
+
+
+\begin{document}
+
+\title{University of California, San Diego \protect\\ . \protect\\ CSE 237C – Validation and Prototyping of Embedded Systems - Fall 2014 \protect\\ .\protect\\ Project 4 - Merge Sort}
+
+\author{Jonas Kemper (U06712561, ax003260@acsmail.ucsd.edu)}
+
+\maketitle
+
+\chapter{Project 4 - Merge Sort}
+\label{chap:1}
+
+This is the Intro.
+
+\section{Baseline Architecture}
+
+For the baseline architecture I chose bottom-up Merge sort and implemented it as follows:
+
+\lstinputlisting[language=C, firstline=63, lastline=83, breaklines=true, basicstyle=\tiny]{code/listing1.cpp}
+
+\section{Static loop boundaries}
+
+The HLS of the baseline code would not produce results for the numbers of latency and interval cycles. As I had learned from other students that being more explicit about the loop boundaries could be helpful, I have tried to be as explicit as possible about the boundaries of the nested loops.
+
+After this HLS had still not produced the desired values, I modified the loops so that only the constant SIZE would be used as a boundary. The resulting code looked as follows:
+
+\lstinputlisting[language=C, firstline=26, lastline=59, breaklines=true, basicstyle=\tiny]{code/listing2.cpp}
+
+As this did not help either, I gave up on the loop boundaries.
+
+\section{Bitonic Merge Sort}
+
+I have tried to implement a Bitonic Merge Sort algorithm that gained traction in the recent past because people have been running it on widely available high-performance GPUs. To me, this sounded as if it would make sense to use this implementation for our FPGA project. I implemented the algorithm as follows:
+
+\lstinputlisting[language=C, firstline=90, lastline=126, breaklines=true, basicstyle=\tiny]{code/listing3.cpp}
+
+Unfortunately, I had to find out that HLS does not support recursion. As a next step I tried to translate the recursion to loops and manually simulate the stack. As the result looked more and more like the original bottom up implementation, I stopped on the Bitonic and went back to the baseline implementation.
+
+\section{Baseline evaluation}
+
+\section{Summary}
+
+I have worked 40 hours on this.
+
+\end{document}
